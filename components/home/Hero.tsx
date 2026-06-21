@@ -26,7 +26,7 @@ export function Hero() {
             {site.rating.value}/5 from {site.rating.count}+ families
           </span>
 
-          <h1 className="mt-6 font-display text-[2.7rem] font-semibold leading-[1.05] sm:text-6xl">
+          <h1 className="mt-6 font-display text-[2.7rem] font-semibold leading-[1.05] sm:text-6xl text-white">
             Learn Quran Online with{" "}
             <span className="text-gradient-gold">Qualified Teachers</span>
           </h1>
