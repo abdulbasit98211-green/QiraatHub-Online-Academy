@@ -1,71 +1,90 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/PageHero";
+import Link from "next/link";
+import { Hero } from "@/components/home/Hero";
+import { TrustSection } from "@/components/home/TrustSection";
 import { CoursesGrid } from "@/components/CoursesGrid";
+import { HowItWorks } from "@/components/home/HowItWorks";
+import { TeacherShowcase } from "@/components/TeacherShowcase";
+import { Testimonials } from "@/components/home/Testimonials";
+import { CountriesServed } from "@/components/home/CountriesServed";
+import { FAQAccordion } from "@/components/FAQAccordion";
 import { FinalCTA } from "@/components/FinalCTA";
 import { SectionHeading } from "@/components/SectionHeading";
-import { Reveal } from "@/components/Reveal";
-import { steps } from "@/lib/data";
-import { site } from "@/lib/site";
-import {
-  JsonLd,
-  breadcrumbSchema,
-  coursesItemListSchema,
-} from "@/lib/schema";
+import { ArrowRight } from "@/components/Icons";
+import { faqs } from "@/lib/data";
 
 export const metadata: Metadata = {
-  title: "Online Quran Courses — Nazra, Tajweed, Hifz & Qaidah",
+  title: "Learn Quran Online with Qualified Teachers",
   description:
-    "Explore our online Quran courses: Nazra Quran Reading, Tajweed, Hifz-ul-Quran and Madani Qaidah. One-to-one classes for kids and adults. Book a free trial today.",
-  alternates: { canonical: "/courses" },
+    "Learn Quran online with qualified male and female teachers. One-to-one online Quran classes for kids and adults worldwide — Nazra, Tajweed, Hifz and Madani Qaidah. Book a free trial class today.",
+  alternates: { canonical: "/" },
 };
 
-export default function CoursesPage() {
+export default function HomePage() {
   return (
     <>
-      <JsonLd
-        data={[
-          coursesItemListSchema(),
-          breadcrumbSchema([
-            { name: "Home", url: site.url },
-            { name: "Courses", url: `${site.url}/courses` },
-          ]),
-        ]}
-      />
-      <PageHero
-        eyebrow="Our courses"
-        title="Online Quran courses for every stage"
-        intro="From your first Arabic letter to perfecting Tajweed and memorising the Quran — choose the path that fits you, taught one-to-one."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Courses" }]}
-      />
+      <Hero />
+      <TrustSection />
+      
+      <section className="section bg-cream">
+        <div className="container-px">
+          <SectionHeading
+            eyebrow="Our courses"
+            title="Online Quran courses for every stage"
+            intro="Choose a course that fits your level, schedule and preference. Taught one-to-one by qualified tutors."
+            ornament
+          />
+          <div className="mt-14">
+            <CoursesGrid />
+          </div>
+          <div className="mt-12 flex justify-center">
+            <Link href="/courses" className="btn-outline text-base">
+              Explore all courses
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <HowItWorks />
 
       <section className="section bg-cream">
         <div className="container-px">
-          <CoursesGrid />
+          <SectionHeading
+            eyebrow="Qualified tutors"
+            title="Learn from qualified male & female teachers"
+            intro="Our teachers are certified, experienced, and vetted to provide high-quality one-to-one learning for your family."
+            ornament
+          />
+          <div className="mt-14">
+            <TeacherShowcase limit={3} />
+          </div>
+          <div className="mt-12 flex justify-center">
+            <Link href="/teachers" className="btn-outline text-base">
+              Meet all teachers
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </section>
+
+      <Testimonials />
+      <CountriesServed />
 
       <section className="section bg-sage/40">
         <div className="container-px">
           <SectionHeading
-            eyebrow="How it works"
-            title="The same simple start for every course"
+            eyebrow="FAQ"
+            title="Frequently asked questions"
+            intro="Find answers to common questions about our classes, teachers, scheduling, and trials."
             ornament
           />
-          <ol className="mx-auto mt-14 grid max-w-4xl gap-6 md:grid-cols-3">
-            {steps.map((step, i) => (
-              <Reveal as="li" key={step.n} delay={i * 80} className="card text-center">
-                <span className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-600 font-display text-2xl font-semibold text-gold-300">
-                  {step.n}
-                </span>
-                <h3 className="mt-5 text-lg font-semibold text-navy-900">{step.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-navy-900/65">{step.detail}</p>
-              </Reveal>
-            ))}
-          </ol>
+          <FAQAccordion items={faqs} />
         </div>
       </section>
 
-      <FinalCTA title="Not sure which course is right?" subtitle="Book a free trial and your teacher will recommend the perfect starting point for you or your child." />
+      <FinalCTA />
     </>
   );
 }
+
